@@ -1,0 +1,60 @@
+{
+  "players": [
+    {
+      "id": "luke",
+      "name": "Luke",
+      "nickname": "Cooler",
+      "image": "images/avatars/default-avatar.svg",
+      "joinedDate": "2026-01-16"
+    },
+    {
+      "id": "scott",
+      "name": "Scott",
+      "nickname": "Pippen",
+      "image": "images/avatars/default-avatar.svg",
+      "joinedDate": "2026-01-16"
+    },
+    {
+      "id": "thomas",
+      "name": "Thomas",
+      "nickname": "The Tank Engine",
+      "image": "images/avatars/default-avatar.svg",
+      "joinedDate": "2026-01-16"
+    },
+    {
+      "id": "henri",
+      "name": "Henri",
+      "nickname": "",
+      "image": "images/avatars/default-avatar.svg",
+      "joinedDate": "2026-01-16"
+    },
+    {
+      "id": "hayden",
+      "name": "Hayden",
+      "nickname": "",
+      "image": "images/avatars/default-avatar.svg",
+      "joinedDate": "2026-01-16"
+    },
+    {
+      "id": "leon",
+      "name": "Leon",
+      "nickname": "",
+      "image": "images/avatars/default-avatar.svg",
+      "joinedDate": "2026-01-16"
+    },
+    {
+      "id": "andrew",
+      "name": "Andrew",
+      "nickname": "",
+      "image": "images/avatars/default-avatar.svg",
+      "joinedDate": "2026-01-16"
+    },
+    {
+      "id": "kent",
+      "name": "Kent",
+      "nickname": "",
+      "image": "images/avatars/default-avatar.svg",
+      "joinedDate": "2026-01-16"
+    }
+  ]
+}

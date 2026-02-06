@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Poker League Standings - Track your poker league tournament results and rankings">
+  <title>Poker League Standings</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎰</text></svg>">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <span class="logo-icon">🎰</span>
+          <div class="logo-text">
+            <h1>Poker League</h1>
+            <span>2026 Season</span>
+          </div>
+        </div>
+        <nav class="nav">
+          <button class="nav-btn active" data-section="leaderboard">🏆 Standings</button>
+          <button class="nav-btn" data-section="history">📅 History</button>
+          <button class="nav-btn" data-section="rules">📋 Rules</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Loading State -->
+    <div id="loading" class="loading">
+      <div class="loading-spinner"></div>
+      <span>Loading league data...</span>
+    </div>
+
+    <!-- Leaderboard Section -->
+    <section id="leaderboard" class="section">
+      <h2 class="section-title"><span>🏆</span> Current Standings</h2>
+      
+      <!-- Stats Overview -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-label">Total Players</div>
+          <div class="stat-value" id="stat-players">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎲</div>
+          <div class="stat-label">Poker Nights</div>
+          <div class="stat-value" id="stat-events">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⭐</div>
+          <div class="stat-label">Points Awarded</div>
+          <div class="stat-value" id="stat-points">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">👑</div>
+          <div class="stat-label">Current Leader</div>
+          <div class="stat-value" id="stat-leader">-</div>
+        </div>
+      </div>
+
+      <!-- Leaderboard Table -->
+      <div class="leaderboard">
+        <div class="leaderboard-header">
+          <div>Rank</div>
+          <div>Player</div>
+          <div>Points</div>
+        </div>
+        <div id="leaderboard-body">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history" class="section">
+      <h2 class="section-title"><span>📅</span> Poker Night History</h2>
+      <div id="events-list" class="events-list">
+        <!-- Populated by JavaScript -->
+      </div>
+    </section>
+
+    <!-- Rules Section -->
+    <section id="rules" class="section">
+      <h2 class="section-title"><span>📋</span> League Rules & Points</h2>
+      
+      <!-- Points System -->
+      <div class="points-table">
+        <div class="points-table-header">
+          🎯 Points System
+        </div>
+        <div class="points-grid" id="points-grid">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Rules Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">📅</div>
+          <div class="stat-label">Schedule</div>
+          <p style="margin-top: 8px; color: var(--text-secondary); font-size: 0.875rem;">
+            Poker nights are held regularly throughout the year. Check the history for upcoming dates!
+          </p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💰</div>
+          <div class="stat-label">Buy-in</div>
+          <p style="margin-top: 8px; color: var(--text-secondary); font-size: 0.875rem;">
+            R200 buy-in. R150 re-buy. R100 top-up.
+          </p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-label">Points System</div>
+          <p style="margin-top: 8px; color: var(--text-secondary); font-size: 0.875rem;">
+            Points are awarded based on your <strong>league position</strong> (ranking among league members), not overall night finish. Guest players don't affect league standings!
+          </p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-label">Season Champion</div>
+          <p style="margin-top: 8px; color: var(--text-secondary); font-size: 0.875rem;">
+            Player with most points at end of the year wins the season trophy!
+          </p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-label">Guest Players</div>
+          <p style="margin-top: 8px; color: var(--text-secondary); font-size: 0.875rem;">
+            Non-league friends can join for fun! They compete on the night but don't earn league points.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Player Modal -->
+  <div id="player-modal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-player-info">
+          <img id="modal-avatar" src="" alt="Player avatar" class="modal-avatar">
+          <div>
+            <div id="modal-name" class="modal-player-name"></div>
+            <div id="modal-rank" class="modal-player-rank"></div>
+          </div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-stats">
+          <div class="modal-stat">
+            <div id="modal-total-points" class="modal-stat-value">0</div>
+            <div class="modal-stat-label">Total Points</div>
+          </div>
+          <div class="modal-stat">
+            <div id="modal-games-played" class="modal-stat-value">0</div>
+            <div class="modal-stat-label">Games Played</div>
+          </div>
+          <div class="modal-stat">
+            <div id="modal-avg-position" class="modal-stat-value">-</div>
+            <div class="modal-stat-label">Avg Position</div>
+          </div>
+          <div class="modal-stat">
+            <div id="modal-wins" class="modal-stat-value">0</div>
+            <div class="modal-stat-label">Wins</div>
+          </div>
+          <div class="modal-stat">
+            <div id="modal-best-finish" class="modal-stat-value">-</div>
+            <div class="modal-stat-label">Best Finish</div>
+          </div>
+          <div class="modal-stat">
+            <div id="modal-win-streak" class="modal-stat-value">0</div>
+            <div class="modal-stat-label">Win Streak</div>
+          </div>
+        </div>
+        <div class="modal-history-title">Recent Results</div>
+        <div id="modal-history" class="modal-history-list">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>🎰 Poker League Standings • Built with ♠️ ♥️ ♣️ ♦️</p>
+    <p style="margin-top: 8px;">Data updated manually via JSON files</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>

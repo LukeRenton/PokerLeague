@@ -1,0 +1,40 @@
+{
+  "pointsSystem": {
+    "description": "Points awarded based on league position (not night position)",
+    "positions": {
+      "1": 25,
+      "2": 18,
+      "3": 15,
+      "4": 12,
+      "5": 10,
+      "6": 8,
+      "7": 6,
+      "8": 4,
+      "9": 2,
+      "10": 1
+    }
+  },
+  "events": [
+    {
+      "id": "event1",
+      "date": "2026-01-16",
+      "name": "January Poker Night",
+      "results": [
+        { "playerId": "luke", "nightPosition": 1, "leaguePosition": 1 },
+        { "playerId": "scott", "nightPosition": 2, "leaguePosition": 2 },
+        { "playerId": "thomas", "nightPosition": 4, "leaguePosition": 3 },
+        { "playerId": "henri", "nightPosition": 6, "leaguePosition": 4 },
+        { "playerId": "hayden", "nightPosition": 7, "leaguePosition": 5 },
+        { "playerId": "leon", "nightPosition": 10, "leaguePosition": 6 },
+        { "playerId": "andrew", "nightPosition": 11, "leaguePosition": 7 },
+        { "playerId": "kent", "nightPosition": 12, "leaguePosition": 8 }
+      ],
+      "nonLeaguePlayers": [
+        { "name": "Shani", "nightPosition": 3 },
+        { "name": "marnus", "nightPosition": 5 },
+        { "name": "Courtney", "nightPosition": 8 },
+        { "name": "Chris", "nightPosition": 9 }
+      ]
+    }
+  ]
+}

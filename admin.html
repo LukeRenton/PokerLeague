@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Poker League</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Admin-specific styles */
+    .admin-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--bg-primary);
+    }
+
+    .login-card {
+      background: var(--bg-card);
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border-color);
+      padding: 40px;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .login-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #fff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .login-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all var(--transition-speed);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    }
+
+    .form-select {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-blue) 100%);
+      border: none;
+      border-radius: 8px;
+      padding: 14px 20px;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-speed);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-card-hover);
+      box-shadow: none;
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, var(--accent-red) 0%, #dc2626 100%);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, var(--accent-green) 0%, #059669 100%);
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .admin-title {
+      font-size: 2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 30px;
+      border-bottom: 2px solid var(--border-color);
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .tab {
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--text-secondary);
+      padding: 12px 24px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all var(--transition-speed);
+      white-space: nowrap;
+    }
+
+    .tab:hover {
+      color: var(--text-primary);
+    }
+
+    .tab.active {
+      color: var(--accent-gold);
+      border-bottom-color: var(--accent-gold);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border-color);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table th {
+      background: var(--bg-secondary);
+      padding: 12px;
+      text-align: left;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .data-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .data-table tr:hover {
+      background: var(--bg-secondary);
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-small {
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      width: auto;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .error-message {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid var(--accent-red);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--accent-red);
+      margin-bottom: 20px;
+    }
+
+    .success-message {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid var(--accent-green);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--accent-green);
+      margin-bottom: 20px;
+    }
+
+    .player-avatar-preview {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border-color);
+    }
+
+    .position-input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .position-input-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .result-entry {
+      margin-bottom: 12px;
+      padding: 12px;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+    }
+    
+    .result-row-group {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    
+    .result-row-group .form-group {
+      margin-bottom: 0;
+    }
+
+    .download-section {
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .download-info {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .code-block {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.875rem;
+      color: var(--accent-green);
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-card">
+      <h1 class="login-title">🎰 Admin Panel</h1>
+      <p class="login-subtitle">Poker League Management</p>
+      <form id="login-form">
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            class="form-input" 
+            placeholder="Enter admin password"
+            required
+            autocomplete="current-password"
+          >
+        </div>
+        <button type="submit" class="btn">Login</button>
+      </form>
+      <div id="login-error" style="margin-top: 16px; display: none;">
+        <div class="error-message">Incorrect password. Please try again.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Panel -->
+  <div id="admin-panel" style="display: none;">
+    <div class="admin-container">
+      <div class="admin-header">
+        <h1 class="admin-title">
+          <span>🎰</span>
+          <span>Admin Panel</span>
+        </h1>
+        <div class="admin-actions">
+          <a href="index.html" class="btn btn-secondary btn-small">
+            👁️ View Public Site
+          </a>
+          <button onclick="logout()" class="btn btn-secondary btn-small">
+            🚪 Logout
+          </button>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('players')">👥 Manage Players</button>
+        <button class="tab" onclick="showTab('events')">🎲 Manage Events</button>
+        <button class="tab" onclick="showTab('points')">⭐ Points System</button>
+        <button class="tab" onclick="showTab('download')">💾 Export Data</button>
+      </div>
+
+      <!-- Players Tab -->
+      <div id="tab-players" class="tab-content active">
+        <div class="card">
+          <h2 class="card-title">Add New Player</h2>
+          <form id="add-player-form">
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label" for="player-id">Player ID *</label>
+                <input 
+                  type="text" 
+                  id="player-id" 
+                  class="form-input" 
+                  placeholder="e.g., john_doe"
+                  required
+                  pattern="[a-z0-9_]+"
+                  title="Lowercase letters, numbers, and underscores only"
+                >
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="player-name">Player Name *</label>
+                <input 
+                  type="text" 
+                  id="player-name" 
+                  class="form-input" 
+                  placeholder="e.g., John Doe"
+                  required
+                >
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="player-nickname">Nickname (Optional)</label>
+                <input 
+                  type="text" 
+                  id="player-nickname" 
+                  class="form-input" 
+                  placeholder="e.g., The Shark, All-In, Lucky, etc."
+                >
+                <small style="color: var(--text-secondary); font-size: 0.8rem;">Fun poker nickname displayed under the player's name</small>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="player-image">Image URL</label>
+                <input 
+                  type="text" 
+                  id="player-image" 
+                  class="form-input" 
+                  placeholder="images/avatars/default-avatar.svg"
+                  value="images/avatars/default-avatar.svg"
+                >
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="player-joined">Joined Date *</label>
+                <input 
+                  type="date" 
+                  id="player-joined" 
+                  class="form-input" 
+                  required
+                >
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success">➕ Add Player</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">Current Players</h2>
+          <div id="players-message"></div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Avatar</th>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Joined Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="players-table-body">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Events Tab -->
+      <div id="tab-events" class="tab-content">
+        <div class="card">
+          <h2 class="card-title">Add New Poker Night</h2>
+          <form id="add-event-form">
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label" for="event-id">Event ID *</label>
+                <input 
+                  type="text" 
+                  id="event-id" 
+                  class="form-input" 
+                  placeholder="e.g., event5"
+                  required
+                  pattern="[a-z0-9_]+"
+                >
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="event-date">Date *</label>
+                <input 
+                  type="date" 
+                  id="event-date" 
+                  class="form-input" 
+                  required
+                >
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="event-name">Event Name *</label>
+              <input 
+                type="text" 
+                id="event-name" 
+                class="form-input" 
+                placeholder="e.g., February 2026 Poker Night"
+                required
+              >
+            </div>
+            <div class="form-group">
+              <label class="form-label">Player Results *</label>
+              <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 12px;">
+                Add players in order of their <strong>night position</strong> (overall finish).<br>
+                Select "Guest Player" for non-league participants. They won't earn points.<br>
+                League positions and points are calculated automatically.
+              </p>
+              <div id="event-results-container">
+                <!-- Dynamically populated -->
+              </div>
+              <button type="button" onclick="addResultPosition()" class="btn btn-secondary" style="margin-top: 12px;">
+                ➕ Add Position
+              </button>
+            </div>
+            <button type="submit" class="btn btn-success">🎲 Add Poker Night</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">Past Poker Nights</h2>
+          <div id="events-message"></div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Event Name</th>
+                  <th>Participants</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="events-table-body">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Points System Tab -->
+      <div id="tab-points" class="tab-content">
+        <div class="card">
+          <h2 class="card-title">Points System Configuration</h2>
+          <p style="color: var(--text-secondary); margin-bottom: 20px;">
+            Configure how many points are awarded for each finishing position.
+          </p>
+          <form id="points-form">
+            <div id="points-inputs-container" class="position-input-grid">
+              <!-- Dynamically populated -->
+            </div>
+            <button type="button" onclick="addPointsPosition()" class="btn btn-secondary" style="margin-top: 16px;">
+              ➕ Add Position
+            </button>
+            <button type="submit" class="btn btn-success" style="margin-top: 16px;">
+              💾 Save Points System
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Download Tab -->
+      <div id="tab-download" class="tab-content">
+        <div class="card">
+          <h2 class="card-title">Export League Data</h2>
+          <p style="color: var(--text-secondary); margin-bottom: 20px;">
+            Download the updated JSON files to commit to your GitHub repository.
+          </p>
+          
+          <div class="grid-2">
+            <button onclick="downloadJSON('players')" class="btn btn-success">
+              📥 Download players.json
+            </button>
+            <button onclick="downloadJSON('events')" class="btn btn-success">
+              📥 Download events.json
+            </button>
+          </div>
+
+          <div class="download-section">
+            <h3 style="color: var(--text-primary); margin-bottom: 12px;">📝 Instructions</h3>
+            <div class="download-info">
+              <strong>Step 1:</strong> Make your changes in the tabs above<br>
+              <strong>Step 2:</strong> Click the download buttons to save the JSON files<br>
+              <strong>Step 3:</strong> Replace the files in your repository's <code>data/</code> folder<br>
+              <strong>Step 4:</strong> Commit and push to GitHub<br><br>
+              <strong>Git Commands:</strong>
+            </div>
+            <div class="code-block">
+git add data/players.json data/events.json<br>
+git commit -m "Update league standings"<br>
+git push origin main
+            </div>
+          </div>
+
+          <div class="card" style="margin-top: 20px; background: var(--bg-secondary);">
+            <h3 style="color: var(--text-primary); margin-bottom: 12px;">📊 Current Data Preview</h3>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+              <div>
+                <strong>Total Players:</strong> <span id="total-players-count">-</span>
+              </div>
+              <div>
+                <strong>Total Events:</strong> <span id="total-events-count">-</span>
+              </div>
+              <div>
+                <strong>Last Updated:</strong> <span id="last-updated">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

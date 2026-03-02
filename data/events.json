@@ -138,6 +138,49 @@
           "nightPosition": 11
         }
       ]
+    },
+    {
+      "id": "event3",
+      "date": "2026-02-28",
+      "name": "March Poker Night",
+      "results": [
+        {
+          "playerId": "luke",
+          "nightPosition": 1,
+          "leaguePosition": 1
+        },
+        {
+          "playerId": "hayden",
+          "nightPosition": 2,
+          "leaguePosition": 2
+        },
+        {
+          "playerId": "thomas",
+          "nightPosition": 3,
+          "leaguePosition": 3
+        },
+        {
+          "playerId": "kent",
+          "nightPosition": 4,
+          "leaguePosition": 4
+        },
+        {
+          "playerId": "scott",
+          "nightPosition": 6,
+          "leaguePosition": 5
+        },
+        {
+          "playerId": "henri",
+          "nightPosition": 7,
+          "leaguePosition": 6
+        }
+      ],
+      "nonLeaguePlayers": [
+        {
+          "name": "Wilmar",
+          "nightPosition": 5
+        }
+      ]
     }
   ]
 }

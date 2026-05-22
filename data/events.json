@@ -181,6 +181,66 @@
           "nightPosition": 5
         }
       ]
+    },
+    {
+      "id": "event4",
+      "date": "2026-04-10",
+      "name": "April Poker Night",
+      "results": [
+        {
+          "playerId": "hayden",
+          "nightPosition": 1,
+          "leaguePosition": 1
+        },
+        {
+          "playerId": "henri",
+          "nightPosition": 2,
+          "leaguePosition": 2
+        },
+        {
+          "playerId": "scott",
+          "nightPosition": 3,
+          "leaguePosition": 3
+        },
+        {
+          "playerId": "thomas",
+          "nightPosition": 4,
+          "leaguePosition": 4
+        },
+        {
+          "playerId": "luke",
+          "nightPosition": 6,
+          "leaguePosition": 5
+        },
+        {
+          "playerId": "andrew",
+          "nightPosition": 9,
+          "leaguePosition": 6
+        },
+        {
+          "playerId": "leon",
+          "nightPosition": 11,
+          "leaguePosition": 7
+        }
+      ],
+      "nonLeaguePlayers": [
+        {
+          "name": "Ethan",
+          "nightPosition": 5
+        },
+        {
+          "name": "Courtney",
+          "nightPosition": 7
+        },
+        {
+          "name": "Wium",
+          "nightPosition": 8
+        },
+        {
+          "name": "Jason",
+          "nightPosition": 10
+        }
+      ]
     }
   ]
 }
